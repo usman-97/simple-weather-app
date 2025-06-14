@@ -7,13 +7,21 @@ import {
 import HomePage from "../pages/HomePage";
 import SearchPage from "../pages/SearchPage";
 import MainLayout from "../layouts/MainLayout";
+import { useWeatherContext } from "../contexts/WeatherContext";
 
 const AppRouter = () => {
+  const { fetchedKeyword } = useWeatherContext();
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
-        <Route index element={<SearchPage />}></Route>
-        <Route path="/home" element={<HomePage />}></Route>
+        <Route
+          index
+          element={fetchedKeyword ? <HomePage /> : <SearchPage />}
+        ></Route>
+        {fetchedKeyword && <Route path="/home" element={<HomePage />}></Route>}
+        {fetchedKeyword && (
+          <Route path="/search" element={<SearchPage />}></Route>
+        )}
       </Route>
     )
   );
