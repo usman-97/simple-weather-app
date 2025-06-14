@@ -72,7 +72,9 @@ const HomePage = () => {
 
   return (
     <div
-      className={`grid place-content-center gap-10 min-h-[100vh] px-5 py-8 ${backgroundColour} text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
+      className={`grid place-content-center gap-10 min-h-[100vh] px-5 py-8 ${
+        data.current.condition.code !== 1000 ? "bg-dark-grey" : backgroundColour
+      } text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
     >
       <div className="flex flex-col md:w-4xl md:space-y-5">
         <SearchForm
@@ -80,7 +82,11 @@ const HomePage = () => {
           handleOnChange={handleOnSearchChange}
         />
         <div
-          className={`flex flex-col items-center mt-5 px-5 py-6 ${dataBackgroundColour} text-center rounded-3xl md:mt-0 md:text-left`}
+          className={`flex flex-col items-center mt-5 px-5 py-6 ${
+            data.current.condition.code !== 1000
+              ? "bg-grey"
+              : dataBackgroundColour
+          } text-center rounded-3xl md:mt-0 md:text-left`}
         >
           <div className="flex flex-col items-center space-y-3">
             <h2 className="text-2xl font-bold">{`${data.location.name}, ${data.location.country}`}</h2>
