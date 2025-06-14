@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter/static/Inter_18pt-Light.ttf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter/static/Inter_18pt-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter/static/Inter_18pt-Medium.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Roboto Slab";
+  src: url("../assets/fonts/RobotoSlab-Bold.ttf");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter/static/Inter_18pt-ExtraBold.ttf");
+  font-weight: 800;
+}
+
+@theme {
+  --font-primary: "Inter", "sans-serif";
+  --font-secondary: "Roboto Slab", "sans-serif";
+
+  /* Colours */
+  --color-sky-blue: #41ceff;
+  --color-light-sky-blue: #5ed3ff;
+  --color-off-white: #f5f9e9;
+  --color-custom-black: #342e37;
+  --color-light-grey: hsl(280, 0%, 70%);
+  --color-dark-grey: #535456;
+  --color-grey: #727274;
+  --color-dark-blue: #0073ff;
+  --color-blue: #1380ff;
+}
+
+a {
+  color: #f5f9e9;
+}
