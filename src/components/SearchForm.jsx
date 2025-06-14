@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchForm = ({ handleSubmit, handleOnChange }) => {
+const SearchForm = ({ handleSubmit, handleOnChange, value }) => {
   return (
     <>
       <form
@@ -14,6 +14,7 @@ const SearchForm = ({ handleSubmit, handleOnChange }) => {
           placeholder="Search City ..."
           className="pl-5 py-2 bg-off-white text-custom-black text-xl placeholder:text-light-grey rounded-3xl md:rounded-none md:rounded-l-3xl md:min-w-[90%]"
           onChange={handleOnChange}
+          value={value}
         />
         <input
           type="submit"

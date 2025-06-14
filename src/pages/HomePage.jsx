@@ -38,7 +38,7 @@ const HomePage = () => {
   if (loading) {
     return (
       <div
-        className={`grid place-content-center gap-10 min-h-[100vh] px-5 py-8 bg-sky-blue text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
+        className={`grid place-content-center gap-10 px-5 py-8 bg-sky-blue text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
       >
         <p>loading...</p>
       </div>
@@ -48,7 +48,7 @@ const HomePage = () => {
   if (error) {
     return (
       <div
-        className={`grid place-content-center gap-10 min-h-[100vh] px-5 py-8 bg-sky-blue text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
+        className={`grid place-content-center gap-10 px-5 py-8 bg-sky-blue text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
       >
         <p>There is an error loading weather data.</p>
       </div>
@@ -58,7 +58,7 @@ const HomePage = () => {
   if (!data) {
     return (
       <div
-        className={`grid place-content-center gap-10 min-h-[100vh] px-5 py-8 bg-sky-blue text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
+        className={`grid place-content-center gap-10 px-5 py-8 bg-sky-blue text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
       >
         <p>No weather data available.</p>
       </div>
@@ -72,7 +72,7 @@ const HomePage = () => {
 
   return (
     <div
-      className={`grid place-content-center gap-10 min-h-[100vh] px-5 py-8 ${
+      className={`grid place-content-center gap-10 px-5 py-8 ${
         data.current.condition.code !== 1000 ? "bg-dark-grey" : backgroundColour
       } text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
     >
@@ -80,6 +80,7 @@ const HomePage = () => {
         <SearchForm
           handleSubmit={handleSubmit}
           handleOnChange={handleOnSearchChange}
+          value={newKeyword}
         />
         <div
           className={`flex flex-col items-center mt-5 px-5 py-6 ${
@@ -95,9 +96,9 @@ const HomePage = () => {
             </span>
           </div>
           <div className="flex flex-col pt-8 md:flex-row md:items-start md:space-x-20">
-            <div className="flex flex-col items-center space-y-5">
+            <div className="flex flex-col items-center space-y-3">
               <img src={showIconBasedOnCode()} className="w-80" />
-              <span className="font-medium text-3xl">
+              <span className="font-light text-2xl">
                 {data.current.condition.text}
               </span>
             </div>

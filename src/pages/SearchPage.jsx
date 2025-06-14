@@ -16,14 +16,14 @@ const SearchPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (keyword !== "") {
+    if (keyword) {
       await fetchWeatherDataByKeyword(keyword);
-      navigate(`/home`);
+      navigate(`/`);
     }
   };
 
   return (
-    <div className="grid place-content-center gap-10 min-h-[100vh] px-5 bg-sky-blue text-off-white font-primary md:px-0 md:gap-12">
+    <div className="grid place-content-center gap-10 px-5 bg-sky-blue text-off-white font-primary md:px-0 md:gap-12">
       <div className="flex flex-col items-center space-y-6 md:flex-row md:space-x-20">
         <img src={weatherIcon} className="hidden w-100 md:block" />
         <img src={weatherMobileIcon} className="block w-50 md:hidden" />
