@@ -83,7 +83,7 @@ export const WeatherProvider = ({ children }) => {
       } else if (weatherCode >= 1135 && weatherCode <= 1147) {
         weatherIcon = FogIcon;
       } else if (
-        (weatherCode >= 1150 && weatherCode <= 1027) ||
+        (weatherCode >= 1150 && weatherCode <= 1207) ||
         (weatherCode >= 1240 && weatherCode <= 1252) ||
         weatherCode === 1276
       ) {
