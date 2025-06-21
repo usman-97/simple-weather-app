@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SearchForm from "../components/SearchForm";
 import SunnyIcon from "../assets/icons/sunny.png";
 import { useWeatherContext } from "../contexts/WeatherContext";
-import FadeSpinner from "../components/Spinner";
+import Spinner from "../components/Spinner";
 
 const HomePage = () => {
   const {
@@ -50,7 +50,7 @@ const HomePage = () => {
           <div
             className={`flex flex-col items-center mt-5 px-5 py-6 bg-light-sky-blue text-center rounded-3xl md:mt-0 md:text-left`}
           >
-            <FadeSpinner loading={loading} />
+            <Spinner loading={loading} />
           </div>
         </div>
       </div>
