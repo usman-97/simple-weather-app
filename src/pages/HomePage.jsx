@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import SearchForm from "../components/SearchForm";
-import SunnyIcon from "../assets/icons/sunny.png";
 import { useWeatherContext } from "../contexts/WeatherContext";
 import Spinner from "../components/Spinner";
+import NoResultIcon from "../assets/icons/no-result.png";
 
 const HomePage = () => {
   const {
@@ -57,22 +57,28 @@ const HomePage = () => {
     );
   }
 
-  if (error) {
+  if (error || !data) {
     return (
       <div
         className={`grid place-content-center gap-10 px-5 py-8 bg-sky-blue text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
       >
-        <p>There is an error loading weather data.</p>
-      </div>
-    );
-  }
-
-  if (!data) {
-    return (
-      <div
-        className={`grid place-content-center gap-10 px-5 py-8 bg-sky-blue text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
-      >
-        <p>No weather data available.</p>
+        <div className="flex flex-col md:w-4xl md:space-y-5">
+          <SearchForm
+            handleSubmit={handleSubmit}
+            handleOnChange={handleOnSearchChange}
+            value={newKeyword}
+          />
+          <div
+            className={`flex flex-col items-center mt-5 px-5 py-6 bg-light-sky-blue text-center rounded-3xl md:mt-0 md:text-left`}
+          >
+            <div className="flex items-center space-x-10">
+              <img src={NoResultIcon} className="w-30" />
+              <p>
+                No weather data found for <b>{fetchedKeyword}</b>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
