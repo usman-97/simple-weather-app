@@ -29,6 +29,7 @@ export const WeatherProvider = ({ children }) => {
   const [fetchedKeyword, setFetchedKeyword] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [searchResult, setSearchResult] = useState([]);
 
   // Get keyword from local storage
   useEffect(() => {
@@ -47,9 +48,7 @@ export const WeatherProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(
-        `http://localhost:8085/v1/weather/details/${keyword}`
-      );
+      const res = await fetch(`/api/v1/weather/details/${keyword}`);
       if (!res.ok) {
         setError("Failed to fetch weather data");
         throw new Error(error);
@@ -62,6 +61,20 @@ export const WeatherProvider = ({ children }) => {
       setError(error);
     } finally {
       setLoading(false);
+    }
+  }, []);
+
+  const fetchSearchResult = useCallback(async (keyword) => {
+    try {
+      const res = await fetch(`/api/v1/weather/search/${keyword}`);
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
+      }
+      const data = await res.json();
+      setSearchResult(data);
+    } catch (error) {
+      console.error("Failed to fetch search results:", error);
+      setSearchResult([]);
     }
   }, []);
 
@@ -95,22 +108,32 @@ export const WeatherProvider = ({ children }) => {
     return weatherIcon;
   };
 
+  const resetSearchResult = () => {
+    setSearchResult([]);
+  };
+
   const value = useMemo(
     () => ({
       data,
       fetchedKeyword,
       loading,
       error,
+      searchResult,
       fetchWeatherDataByKeyword,
+      fetchSearchResult,
       showIconBasedOnCode,
+      resetSearchResult,
     }),
     [
       data,
       fetchedKeyword,
       loading,
       error,
+      searchResult,
       fetchWeatherDataByKeyword,
+      fetchSearchResult,
       showIconBasedOnCode,
+      resetSearchResult,
     ]
   );
 

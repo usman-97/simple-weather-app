@@ -10,8 +10,11 @@ const HomePage = () => {
     fetchedKeyword,
     loading,
     error,
+    searchResult,
     fetchWeatherDataByKeyword,
+    fetchSearchResult,
     showIconBasedOnCode,
+    resetSearchResult,
   } = useWeatherContext();
   const [newKeyword, setNewKeyword] = useState(fetchedKeyword);
 
@@ -23,6 +26,7 @@ const HomePage = () => {
 
   const handleOnSearchChange = (e) => {
     setNewKeyword(e.target.value);
+    fetchSearchResult(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -36,6 +40,12 @@ const HomePage = () => {
     }
   };
 
+  const handleSelectCity = (city) => {
+    setNewKeyword(city);
+    fetchWeatherDataByKeyword(city);
+    resetSearchResult();
+  };
+
   if (loading) {
     return (
       <div
@@ -46,6 +56,9 @@ const HomePage = () => {
             handleSubmit={handleSubmit}
             handleOnChange={handleOnSearchChange}
             value={newKeyword}
+            searchResult={searchResult}
+            resetSearchResult={resetSearchResult}
+            handleSelectCity={handleSelectCity}
           />
           <div
             className={`flex flex-col items-center mt-5 px-5 py-6 bg-light-sky-blue text-center rounded-3xl md:mt-0 md:text-left`}
@@ -67,6 +80,9 @@ const HomePage = () => {
             handleSubmit={handleSubmit}
             handleOnChange={handleOnSearchChange}
             value={newKeyword}
+            searchResult={searchResult}
+            resetSearchResult={resetSearchResult}
+            handleSelectCity={handleSelectCity}
           />
           <div
             className={`flex flex-col items-center mt-5 px-5 py-6 bg-light-sky-blue text-center rounded-3xl md:mt-0 md:text-left`}
@@ -90,15 +106,18 @@ const HomePage = () => {
 
   return (
     <div
-      className={`grid place-content-center gap-10 px-5 py-8 ${
+      className={`grid place-content-center gap-10 relative px-5 py-8 ${
         data.current.condition.code !== 1000 ? "bg-dark-grey" : backgroundColour
       } text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
     >
-      <div className="flex flex-col md:w-4xl md:space-y-5">
+      <div className="flex flex-col mb-2 md:w-4xl md:space-y-5">
         <SearchForm
           handleSubmit={handleSubmit}
           handleOnChange={handleOnSearchChange}
           value={newKeyword}
+          searchResult={searchResult}
+          resetSearchResult={resetSearchResult}
+          handleSelectCity={handleSelectCity}
         />
         <div
           className={`flex flex-col items-center mt-5 px-5 py-6 ${

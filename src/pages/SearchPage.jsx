@@ -7,11 +7,17 @@ import { useWeatherContext } from "../contexts/WeatherContext";
 
 const SearchPage = () => {
   const [keyword, setKeyword] = useState(null);
-  const { fetchWeatherDataByKeyword } = useWeatherContext();
+  const {
+    fetchWeatherDataByKeyword,
+    searchResult,
+    fetchSearchResult,
+    resetSearchResult,
+  } = useWeatherContext();
   const navigate = useNavigate();
 
   const handleOnSearchChange = (e) => {
     setKeyword(e.target.value);
+    fetchSearchResult(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -20,6 +26,12 @@ const SearchPage = () => {
       await fetchWeatherDataByKeyword(keyword);
       navigate(`/`);
     }
+  };
+
+  const handleSelectCity = (city) => {
+    setKeyword(city);
+    fetchWeatherDataByKeyword(city);
+    resetSearchResult();
   };
 
   return (
@@ -34,6 +46,10 @@ const SearchPage = () => {
           <SearchForm
             handleSubmit={handleSubmit}
             handleOnChange={handleOnSearchChange}
+            value={keyword}
+            searchResult={searchResult}
+            resetSearchResult={resetSearchResult}
+            handleSelectCity={handleSelectCity}
           />
         </div>
       </div>
