@@ -34,7 +34,7 @@ export const WeatherProvider = ({ children }) => {
 
   // Get keyword from local storage
   useEffect(() => {
-    const savedKeyword = localStorage.getItem("weatherKeyword");
+    const savedKeyword = getWithExpiry("weatherKeyword");
     if (savedKeyword) {
       setFetchedKeyword(savedKeyword);
     }
@@ -42,7 +42,7 @@ export const WeatherProvider = ({ children }) => {
 
   const fetchWeatherDataByKeyword = useCallback(async (keyword) => {
     // If provided keyword is same as the one stored in local storage then we don't need to proceed any further
-    if (keyword === getWithExpiry("weatherKeyword")) {
+    if (keyword === fetchedKeyword) {
       return;
     }
 
