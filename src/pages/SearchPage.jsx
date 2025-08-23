@@ -4,6 +4,7 @@ import weatherMobileIcon from "../assets/icons/weather-mobile.png";
 import SearchForm from "../components/SearchForm";
 import { useNavigate } from "react-router-dom";
 import { useWeatherContext } from "../contexts/WeatherContext";
+import Spinner from "../components/Spinner";
 
 const SearchPage = () => {
   const [keyword, setKeyword] = useState(null);
@@ -12,6 +13,7 @@ const SearchPage = () => {
     searchResult,
     fetchSearchResult,
     resetSearchResult,
+    loading,
   } = useWeatherContext();
   const navigate = useNavigate();
 
@@ -35,8 +37,8 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="grid place-content-center gap-10 px-5 bg-sky-blue text-off-white font-primary md:px-0 md:gap-12">
-      <div className="flex flex-col items-center space-y-6 md:flex-row md:space-x-20">
+    <div className="grid place-content-center gap-10 w-full px-5 bg-sky-blue text-off-white font-primary md:px-0 md:gap-12">
+      <div className="flex flex-col items-center space-y-6 mb-30 md:flex-row md:space-x-20 md:mb-5">
         <img src={weatherIcon} className="hidden w-100 md:block" />
         <img src={weatherMobileIcon} className="block w-50 md:hidden" />
         <div className="flex-col space-y-6 md:space-y-10">
@@ -51,6 +53,11 @@ const SearchPage = () => {
             resetSearchResult={resetSearchResult}
             handleSelectCity={handleSelectCity}
           />
+          <div
+            className={`flex flex-col items-center mt-5 px-5 py-6 text-center rounded-3xl md:mt-0 md:text-left`}
+          >
+            <Spinner loading={loading} />
+          </div>
         </div>
       </div>
     </div>
