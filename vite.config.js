@@ -9,6 +9,13 @@ export default defineConfig({
     tailwindcss()
   ],
   server: {
-    port: 5000
+    port: 5000,
+    proxy: {
+      '/api': {
+        target: 'https://simple-weather-api-2tn7.onrender.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      }
+    }
   }
 })
