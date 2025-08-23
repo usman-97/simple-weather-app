@@ -13,6 +13,7 @@ import MoonIcon from "../assets/icons/moon.png";
 import FogIcon from "../assets/icons/fog.png";
 import RainIcon from "../assets/icons/rainy.png";
 import SnowIcon from "../assets/icons/snowy.png";
+import { setWithExpiry, getWithExpiry } from "../util/LocalStorageUtil";
 
 const WeatherContext = createContext(null);
 
@@ -41,7 +42,7 @@ export const WeatherProvider = ({ children }) => {
 
   const fetchWeatherDataByKeyword = useCallback(async (keyword) => {
     // If provided keyword is same as the one stored in local storage then we don't need to proceed any further
-    if (keyword === fetchedKeyword) {
+    if (keyword === getWithExpiry("weatherKeyword")) {
       return;
     }
 
@@ -56,7 +57,8 @@ export const WeatherProvider = ({ children }) => {
       const responseData = await res.json();
       setData(responseData);
       setFetchedKeyword(keyword);
-      localStorage.setItem("weatherKeyword", keyword);
+      const oneHour = 60 * 60 * 1000;
+      setWithExpiry("weatherKeyword", keyword, oneHour);
     } catch (error) {
       setError(error);
     } finally {
