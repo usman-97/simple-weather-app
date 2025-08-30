@@ -23,7 +23,10 @@ const AppRouter = () => {
           <Route path="/search" element={<SearchPage />}></Route>
         )}
       </Route>
-    )
+    ),
+    {
+      basename: "/simple-weather-app",
+    }
   );
 
   return <RouterProvider router={router} />;
