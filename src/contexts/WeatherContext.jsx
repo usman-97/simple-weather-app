@@ -14,6 +14,7 @@ import FogIcon from "../assets/icons/fog.png";
 import RainIcon from "../assets/icons/rainy.png";
 import SnowIcon from "../assets/icons/snowy.png";
 import { setWithExpiry, getWithExpiry } from "../util/LocalStorageUtil";
+import { WEATHER_API_URL } from "../../config/config.js";
 
 const WeatherContext = createContext(null);
 
@@ -49,7 +50,9 @@ export const WeatherProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/v1/weather/details/${keyword}`);
+      const res = await fetch(
+        `${WEATHER_API_URL}/v1/weather/details/${keyword}`
+      );
       if (!res.ok) {
         setError("Failed to fetch weather data");
         throw new Error(error);
@@ -68,7 +71,9 @@ export const WeatherProvider = ({ children }) => {
 
   const fetchSearchResult = useCallback(async (keyword) => {
     try {
-      const res = await fetch(`/api/v1/weather/search/${keyword}`);
+      const res = await fetch(
+        `${WEATHER_API_URL}/v1/weather/search/${keyword}`
+      );
       if (!res.ok) {
         throw new Error(`HTTP error! Status: ${res.status}`);
       }
