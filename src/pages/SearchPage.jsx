@@ -37,11 +37,11 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="grid place-content-center gap-10 w-full px-5 bg-sky-blue text-off-white font-primary md:px-0 md:gap-12">
-      <div className="flex flex-col items-center space-y-6 mb-30 md:flex-row md:space-x-20 md:mb-5">
+    <div className="grid place-content-center gap-10 px-5 bg-sky-blue text-off-white font-primary overflow-hidden md:px-0 md:gap-12">
+      <div className="flex flex-col items-center space-y-6 md:flex-row md:space-x-5 md:mb-10">
         <img src={weatherIcon} className="hidden w-100 md:block" />
         <img src={weatherMobileIcon} className="block w-50 md:hidden" />
-        <div className="flex-col space-y-6 md:space-y-10">
+        <div className="flex-col space-y-6 md:space-y-10 md:mr-30">
           <h1 className="text-5xl font-extrabold text-center md:text-8xl font-secondary">
             Simple Weather App
           </h1>
