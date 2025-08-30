@@ -11,12 +11,5 @@ export default defineConfig({
   base: "/simple-weather-app",
   server: {
     port: 5000,
-    proxy: {
-      '/api': {
-        target: 'https://simple-weather-api-2tn7.onrender.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      }
-    }
   }
 })
