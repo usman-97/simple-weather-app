@@ -90,7 +90,7 @@ const HomePage = () => {
             <div className="flex items-center space-x-10">
               <img src={NoResultIcon} className="w-30" />
               <p>
-                No weather data found for <b>{fetchedKeyword}</b>
+                No weather data found for <b>{newKeyword}</b>
               </p>
             </div>
           </div>
