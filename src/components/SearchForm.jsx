@@ -13,13 +13,20 @@ const SearchForm = ({
 
   const handleFocusOut = () => {
     if (!isClickingButton) {
+      console.log("Resetting results");
       resetSearchResult();
     }
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit} action="POST">
+      <form
+        onSubmit={handleSubmit}
+        action="POST"
+        onBlur={handleFocusOut}
+        onMouseDown={() => setIsClickingButton(true)}
+        onMouseUp={() => setIsClickingButton(false)}
+      >
         <div className="w-full md:flex md:flex-col">
           <div className="flex flex-col md:flex-row md:space-y-0">
             <div className="w-full">
@@ -29,9 +36,6 @@ const SearchForm = ({
                 placeholder="Search City ..."
                 className="w-full pl-5 py-2 bg-off-white text-custom-black text-xl placeholder:text-light-grey rounded-3xl md:rounded-none md:rounded-l-3xl"
                 onChange={handleOnChange}
-                onBlur={handleFocusOut}
-                onMouseDown={() => setIsClickingButton(true)}
-                onMouseUp={() => setIsClickingButton(false)}
                 value={value}
               />
 
