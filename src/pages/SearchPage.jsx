@@ -38,26 +38,22 @@ const SearchPage = () => {
 
   return (
     <div className="grid place-content-center gap-10 px-5 bg-sky-blue text-off-white font-primary overflow-hidden md:px-0 md:gap-12">
-      <div className="flex flex-col items-center space-y-6 md:flex-row md:space-x-5 md:mb-10">
-        <img src={weatherIcon} className="hidden w-100 md:block" />
-        <img src={weatherMobileIcon} className="block w-50 md:hidden" />
-        <div className="flex-col space-y-6 md:space-y-10 md:mr-30">
-          <h1 className="text-5xl font-extrabold text-center md:text-8xl font-secondary">
-            Simple Weather App
-          </h1>
-          <SearchForm
-            handleSubmit={handleSubmit}
-            handleOnChange={handleOnSearchChange}
-            value={keyword}
-            searchResult={searchResult}
-            resetSearchResult={resetSearchResult}
-            handleSelectCity={handleSelectCity}
-          />
-          <div
-            className={`flex flex-col items-center mt-5 px-5 py-6 text-center rounded-3xl md:mt-0 md:text-left`}
-          >
-            <Spinner loading={loading} />
-          </div>
+      <div className="flex flex-col space-y-6">
+        <h1 className="text-5xl font-extrabold text-center md:text-8xl font-secondary md:mb-10">
+          Simple Weather App
+        </h1>
+        <SearchForm
+          handleSubmit={handleSubmit}
+          handleOnChange={handleOnSearchChange}
+          value={keyword}
+          searchResult={searchResult}
+          resetSearchResult={resetSearchResult}
+          handleSelectCity={handleSelectCity}
+        />
+        <div
+          className={`flex flex-col items-center mt-5 px-5 py-6 text-center rounded-3xl md:mt-0 md:text-left`}
+        >
+          <Spinner loading={loading} />
         </div>
       </div>
     </div>
