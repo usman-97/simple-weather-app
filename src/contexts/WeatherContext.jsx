@@ -13,7 +13,11 @@ import MoonIcon from "../assets/icons/moon.png";
 import FogIcon from "../assets/icons/fog.png";
 import RainIcon from "../assets/icons/rainy.png";
 import SnowIcon from "../assets/icons/snowy.png";
-import { setWithExpiry, getWithExpiry } from "../util/LocalStorageUtil";
+import {
+  setWithExpiry,
+  getWithExpiry,
+  removeFromStorage,
+} from "../util/LocalStorageUtil";
 import { WEATHER_API_URL } from "../../config/config.js";
 
 const WeatherContext = createContext(null);
@@ -119,6 +123,12 @@ export const WeatherProvider = ({ children }) => {
     setSearchResult([]);
   };
 
+  const resetSearch = () => {
+    removeFromStorage("weatherKeyword");
+    setFetchedKeyword(null);
+    setData(null);
+  };
+
   const value = useMemo(
     () => ({
       data,
@@ -130,6 +140,7 @@ export const WeatherProvider = ({ children }) => {
       fetchSearchResult,
       showIconBasedOnCode,
       resetSearchResult,
+      resetSearch,
     }),
     [
       data,
@@ -141,6 +152,7 @@ export const WeatherProvider = ({ children }) => {
       fetchSearchResult,
       showIconBasedOnCode,
       resetSearchResult,
+      resetSearch,
     ]
   );
 

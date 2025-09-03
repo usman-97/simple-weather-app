@@ -3,6 +3,9 @@ import SearchForm from "../components/SearchForm";
 import { useWeatherContext } from "../contexts/WeatherContext";
 import Spinner from "../components/Spinner";
 import NoResultIcon from "../assets/icons/no-result.png";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const {
@@ -15,8 +18,10 @@ const HomePage = () => {
     fetchSearchResult,
     showIconBasedOnCode,
     resetSearchResult,
+    resetSearch,
   } = useWeatherContext();
   const [newKeyword, setNewKeyword] = useState(fetchedKeyword);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!data && fetchedKeyword) {
@@ -46,20 +51,31 @@ const HomePage = () => {
     resetSearchResult();
   };
 
+  const handleBackToSearchPage = () => {
+    resetSearch();
+    resetSearchResult();
+    navigate(`/`);
+  };
+
   if (loading) {
     return (
       <div
         className={`grid place-content-center gap-10 px-5 py-8 bg-sky-blue text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
       >
         <div className="flex flex-col md:w-4xl md:space-y-5">
-          <SearchForm
-            handleSubmit={handleSubmit}
-            handleOnChange={handleOnSearchChange}
-            value={newKeyword}
-            searchResult={searchResult}
-            resetSearchResult={resetSearchResult}
-            handleSelectCity={handleSelectCity}
-          />
+          <div className="flex flex-col items-start space-y-5 md:flex-row md:space-x-5 md:items-baseline">
+            <button onClick={handleBackToSearchPage}>
+              <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
+            </button>
+            <SearchForm
+              handleSubmit={handleSubmit}
+              handleOnChange={handleOnSearchChange}
+              value={newKeyword}
+              searchResult={searchResult}
+              resetSearchResult={resetSearchResult}
+              handleSelectCity={handleSelectCity}
+            />
+          </div>
           <div
             className={`flex flex-col items-center mt-5 px-5 py-6 bg-light-sky-blue text-center rounded-3xl md:mt-0 md:text-left`}
           >
@@ -76,14 +92,19 @@ const HomePage = () => {
         className={`grid place-content-center gap-10 px-5 py-8 bg-sky-blue text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
       >
         <div className="flex flex-col md:w-4xl md:space-y-5">
-          <SearchForm
-            handleSubmit={handleSubmit}
-            handleOnChange={handleOnSearchChange}
-            value={newKeyword}
-            searchResult={searchResult}
-            resetSearchResult={resetSearchResult}
-            handleSelectCity={handleSelectCity}
-          />
+          <div className="flex flex-col items-start space-y-5 md:flex-row md:space-x-5 md:items-baseline">
+            <button onClick={handleBackToSearchPage}>
+              <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
+            </button>
+            <SearchForm
+              handleSubmit={handleSubmit}
+              handleOnChange={handleOnSearchChange}
+              value={newKeyword}
+              searchResult={searchResult}
+              resetSearchResult={resetSearchResult}
+              handleSelectCity={handleSelectCity}
+            />
+          </div>
           <div
             className={`flex flex-col items-center mt-5 px-5 py-6 bg-light-sky-blue text-center rounded-3xl md:mt-0 md:text-left`}
           >
@@ -111,14 +132,19 @@ const HomePage = () => {
       } text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
     >
       <div className="flex flex-col mb-2 md:w-4xl md:space-y-5">
-        <SearchForm
-          handleSubmit={handleSubmit}
-          handleOnChange={handleOnSearchChange}
-          value={newKeyword}
-          searchResult={searchResult}
-          resetSearchResult={resetSearchResult}
-          handleSelectCity={handleSelectCity}
-        />
+        <div className="flex flex-col items-start space-y-5 md:flex-row md:space-x-5 md:items-baseline">
+          <button onClick={handleBackToSearchPage}>
+            <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
+          </button>
+          <SearchForm
+            handleSubmit={handleSubmit}
+            handleOnChange={handleOnSearchChange}
+            value={newKeyword}
+            searchResult={searchResult}
+            resetSearchResult={resetSearchResult}
+            handleSelectCity={handleSelectCity}
+          />
+        </div>
         <div
           className={`flex flex-col items-center mt-5 px-5 py-6 ${
             data.current.condition.code !== 1000
