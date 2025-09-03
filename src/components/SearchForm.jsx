@@ -21,13 +21,14 @@ const SearchForm = ({
   return (
     <>
       <form
+        className="w-full"
         onSubmit={handleSubmit}
         action="POST"
         onBlur={handleFocusOut}
         onMouseDown={() => setIsClickingButton(true)}
         onMouseUp={() => setIsClickingButton(false)}
       >
-        <div className="w-full md:flex md:flex-col">
+        <div className="md:flex md:flex-col">
           <div className="flex flex-col md:flex-row md:space-y-0">
             <div className="w-full">
               <input
