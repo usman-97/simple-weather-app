@@ -162,18 +162,18 @@ const HomePage = () => {
             <div className="flex flex-col space-y-15 md:space-y-25">
               <div className="flex flex-col pt-15 space-y-4 md:space-y-2">
                 <span className="text-7xl font-extrabold">{`${data.current.temp_c}℃`}</span>
-                <span className="text-xl font-light md:text-lg">
+                <span className="pl-4 text-xl font-light md:text-lg">
                   {`Feels like ${data.current.feelslike_c}℃`}
                 </span>
               </div>
               <div className="flex flex-row justify-center md:justify-between">
                 <div className="flex flex-col items-center pr-8 py-5 space-y-2 border-r-1 border-off-white">
                   <span className="text-md">Humidity</span>
-                  <span className="text-2xl font-medium">{`${data.current.humidity}%`}</span>
+                  <span className="text-3xl font-medium">{`${data.current.humidity}%`}</span>
                 </div>
                 <div className="flex flex-col items-center pl-8 py-5 space-y-2">
                   <span className="text-md">Wind</span>
-                  <span className="text-2xl font-medium">{`${data.current.wind_kph} kph`}</span>
+                  <span className="text-3xl font-medium">{`${data.current.wind_kph} kph`}</span>
                 </div>
               </div>
             </div>
