@@ -21,7 +21,7 @@ const SearchForm = ({
   return (
     <>
       <form
-        className="w-full"
+        className="w-full px-5 md:px-0"
         onSubmit={handleSubmit}
         action="POST"
         onBlur={handleFocusOut}
@@ -35,7 +35,7 @@ const SearchForm = ({
                 type="text"
                 name="searchCity"
                 placeholder="Search City ..."
-                className="w-full pl-5 py-2 bg-off-white text-custom-black text-xl placeholder:text-light-grey rounded-3xl focus:outline-2 focus:outline-blue md:rounded-none md:rounded-l-lg"
+                className="w-full pl-5 py-2 bg-off-white text-custom-black text-xl placeholder:text-light-grey rounded-lg focus:outline-2 focus:outline-blue md:rounded-none md:rounded-l-lg"
                 onChange={handleOnChange}
                 value={value}
               />
@@ -48,7 +48,7 @@ const SearchForm = ({
             <input
               type="submit"
               value="Search"
-              className="mt-1 py-2 px-5 bg-custom-black text-xl font-medium cursor-pointer rounded-3xl hover:bg-light-charcoal transition-colors duration-300 md:mt-0 md:rounded-none md:rounded-r-lg"
+              className="mt-1 py-2 px-5 bg-custom-black text-xl font-medium cursor-pointer rounded-lg hover:bg-light-charcoal transition-colors duration-300 md:mt-0 md:rounded-none md:rounded-r-lg"
             />
           </div>
         </div>
