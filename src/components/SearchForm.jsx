@@ -30,7 +30,7 @@ const SearchForm = ({
       >
         <div className="md:flex md:flex-col">
           <div className="flex flex-col md:flex-row md:space-y-0">
-            <div className="w-full">
+            <div className="w-full relative">
               <input
                 type="text"
                 name="searchCity"

@@ -37,7 +37,7 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="grid place-content-center gap-10 px-5 bg-sky-blue text-off-white font-primary overflow-hidden md:px-0 md:gap-12">
+    <div className="grid place-content-center gap-10 px-5 pb-50 bg-sky-blue text-off-white font-primary overflow-hidden md:px-0 md:gap-12">
       <div className="flex flex-col space-y-6 relative">
         <h1 className="text-5xl font-extrabold text-center md:text-8xl font-secondary md:mb-10">
           Simple Weather App

@@ -5,7 +5,7 @@ import Footer from "../pages/sections/Footer";
 const MainLayout = () => {
   return (
     <>
-      <div className="grid row-span-3 min-h-[100vh]">
+      <div className="grid min-h-[100vh]">
         <Outlet />
         <Footer />
       </div>
