@@ -45,9 +45,9 @@ const HomePage = () => {
     }
   };
 
-  const handleSelectCity = (city) => {
+  const handleSelectCity = (keyword, city) => {
     setNewKeyword(city);
-    fetchWeatherDataByKeyword(city);
+    fetchWeatherDataByKeyword(keyword);
     resetSearchResult();
   };
 
