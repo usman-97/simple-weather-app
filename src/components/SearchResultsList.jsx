@@ -13,7 +13,9 @@ const SearchResultsList = ({ results, handleSelectCity }) => {
             key={i}
             className="py-3 text-left hover:font-semibold"
             type="button"
-            onClick={() => handleSelectCity(city.name)}
+            onClick={() =>
+              handleSelectCity(`${city.lat},${city.lon}`, city.name)
+            }
           >
             {city.name}, {city.country}
           </button>
