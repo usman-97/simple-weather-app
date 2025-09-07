@@ -55,7 +55,7 @@ export const WeatherProvider = ({ children }) => {
     setError(null);
     try {
       const res = await fetch(
-        `${WEATHER_API_URL}/v1/weather/details/${keyword}`
+        `${WEATHER_API_URL}/v1/weather/details?k=${keyword}`
       );
       if (!res.ok) {
         setError("Failed to fetch weather data");
