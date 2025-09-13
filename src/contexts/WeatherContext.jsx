@@ -36,6 +36,7 @@ export const WeatherProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
+  const [selectedPlace, setSelectedPlace] = useState(null);
 
   // Get keyword from local storage
   useEffect(() => {
@@ -45,38 +46,45 @@ export const WeatherProvider = ({ children }) => {
     }
   }, []);
 
-  const fetchWeatherDataByKeyword = useCallback(async (keyword) => {
-    // If provided keyword is same as the one stored in local storage then we don't need to proceed any further
-    if (keyword === fetchedKeyword) {
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch(
-        `${WEATHER_API_URL}/v1/weather/details?k=${keyword}`
-      );
-      if (!res.ok) {
-        setError("Failed to fetch weather data");
-        throw new Error(error);
+  const fetchWeatherDataByKeyword = useCallback(
+    async (keyword, selectedPlace = "") => {
+      // If provided keyword is same as the one stored in local storage then we don't need to proceed any further
+      if (keyword === fetchedKeyword) {
+        return;
       }
-      const responseData = await res.json();
-      setData(responseData);
-      setFetchedKeyword(keyword);
-      const oneHour = 60 * 60 * 1000;
-      setWithExpiry("weatherKeyword", keyword, oneHour);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch(
+          `${WEATHER_API_URL}/v1/weather/details?k=${keyword}`
+        );
+        if (!res.ok) {
+          setError("Failed to fetch weather data");
+          throw new Error(error);
+        }
+        const responseData = await res.json();
+        setData(responseData);
+        setFetchedKeyword(keyword);
+        const oneHour = 60 * 60 * 1000;
+        setWithExpiry("weatherKeyword", keyword, oneHour);
+        if (selectedPlace) {
+          setSelectedPlace(selectedPlace);
+          setWithExpiry("selectedPlace", selectedPlace, oneHour);
+        }
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
 
   const fetchSearchResult = useCallback(async (keyword) => {
     try {
       const res = await fetch(
-        `${WEATHER_API_URL}/v1/weather/search/${keyword}`
+        `${WEATHER_API_URL}/v1/weather/search?k=${keyword}`
       );
       if (!res.ok) {
         throw new Error(`HTTP error! Status: ${res.status}`);
@@ -136,6 +144,7 @@ export const WeatherProvider = ({ children }) => {
       loading,
       error,
       searchResult,
+      selectedPlace,
       fetchWeatherDataByKeyword,
       fetchSearchResult,
       showIconBasedOnCode,
@@ -148,6 +157,7 @@ export const WeatherProvider = ({ children }) => {
       loading,
       error,
       searchResult,
+      selectedPlace,
       fetchWeatherDataByKeyword,
       fetchSearchResult,
       showIconBasedOnCode,

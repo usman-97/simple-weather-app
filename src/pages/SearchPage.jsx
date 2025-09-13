@@ -32,7 +32,7 @@ const SearchPage = () => {
 
   const handleSelectCity = (keyword, city) => {
     setKeyword(city);
-    fetchWeatherDataByKeyword(keyword);
+    fetchWeatherDataByKeyword(keyword, city);
     resetSearchResult();
   };
 

@@ -14,13 +14,14 @@ const HomePage = () => {
     loading,
     error,
     searchResult,
+    selectedPlace,
     fetchWeatherDataByKeyword,
     fetchSearchResult,
     showIconBasedOnCode,
     resetSearchResult,
     resetSearch,
   } = useWeatherContext();
-  const [newKeyword, setNewKeyword] = useState(fetchedKeyword);
+  const [newKeyword, setNewKeyword] = useState(selectedPlace);
   const navigate = useNavigate();
 
   useEffect(() => {
