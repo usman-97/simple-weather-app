@@ -45,6 +45,11 @@ export const WeatherProvider = ({ children }) => {
     if (savedKeyword) {
       setFetchedKeyword(savedKeyword);
     }
+
+    const savedSelectedPlace = getWithExpiry("selectedPlace");
+    if (savedSelectedPlace) {
+      setSelectedPlace(savedSelectedPlace);
+    }
   }, []);
 
   const fetchWeatherDataByKeyword = useCallback(

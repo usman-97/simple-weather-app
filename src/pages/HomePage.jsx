@@ -27,6 +27,7 @@ const HomePage = () => {
   useEffect(() => {
     if (!data && fetchedKeyword) {
       fetchWeatherDataByKeyword(fetchedKeyword);
+      setNewKeyword(selectedPlace);
     }
   }, [fetchedKeyword]);
 
