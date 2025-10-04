@@ -13,7 +13,6 @@ const SearchForm = ({
 
   const handleFocusOut = () => {
     if (!isClickingButton) {
-      console.log("Resetting results");
       resetSearchResult();
     }
   };

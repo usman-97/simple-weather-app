@@ -18,7 +18,8 @@ import {
   getWithExpiry,
   removeFromStorage,
 } from "../util/LocalStorageUtil";
-import { WEATHER_API_URL } from "../../config/config.js";
+import { WEATHER_API_URL, CLIENT_ID } from "../config/config.js";
+import { getToken } from "../client/AuthenticationClient.js";
 
 const WeatherContext = createContext(null);
 
@@ -55,9 +56,20 @@ export const WeatherProvider = ({ children }) => {
 
       setLoading(true);
       setError(null);
+      let token = await getToken();
+      if (!token) {
+        setError("Unauthorised access...");
+        throw new Error(error);
+      }
       try {
         const res = await fetch(
-          `${WEATHER_API_URL}/v1/weather/details?k=${keyword}`
+          `${WEATHER_API_URL}/v1/weather/details?k=${keyword}`,
+          {
+            headers: {
+              "X-Client-Id": CLIENT_ID,
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         if (!res.ok) {
           setError("Failed to fetch weather data");
@@ -72,8 +84,8 @@ export const WeatherProvider = ({ children }) => {
           setSelectedPlace(selectedPlace);
           setWithExpiry("selectedPlace", selectedPlace, oneHour);
         }
-      } catch (error) {
-        setError(error);
+      } catch (e) {
+        setError(e);
       } finally {
         setLoading(false);
       }
@@ -82,9 +94,21 @@ export const WeatherProvider = ({ children }) => {
   );
 
   const fetchSearchResult = useCallback(async (keyword) => {
+    let token = await getToken();
+    if (!token) {
+      setError("Unauthorised access...");
+      throw new Error(error);
+    }
+
     try {
       const res = await fetch(
-        `${WEATHER_API_URL}/v1/weather/search?k=${keyword}`
+        `${WEATHER_API_URL}/v1/weather/search?k=${keyword}`,
+        {
+          headers: {
+            "X-Client-Id": CLIENT_ID,
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       if (!res.ok) {
         throw new Error(`HTTP error! Status: ${res.status}`);
@@ -132,9 +156,19 @@ export const WeatherProvider = ({ children }) => {
   };
 
   const resetSearch = () => {
-    removeFromStorage("weatherKeyword");
+    clearWeatherDataFromLocalStorage();
+    resetState();
+  };
+
+  const resetState = () => {
     setFetchedKeyword(null);
+    setSelectedPlace(null);
     setData(null);
+  };
+
+  const clearWeatherDataFromLocalStorage = () => {
+    removeFromStorage("weatherKeyword");
+    removeFromStorage("selectedPlace");
   };
 
   const value = useMemo(

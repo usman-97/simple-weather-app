@@ -25,7 +25,7 @@ const SearchPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (keyword) {
-      await fetchWeatherDataByKeyword(keyword);
+      await fetchWeatherDataByKeyword(keyword, keyword);
       navigate(`/`);
     }
   };
