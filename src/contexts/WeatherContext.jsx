@@ -67,8 +67,9 @@ export const WeatherProvider = ({ children }) => {
         throw new Error(error);
       }
       try {
+        const encodedKeyword = encodeURIComponent(keyword);
         const res = await fetch(
-          `${WEATHER_API_URL}/v1/weather/details?k=${keyword}`,
+          `${WEATHER_API_URL}/v1/weather/details?k=${encodedKeyword}`,
           {
             headers: {
               "X-Client-Id": CLIENT_ID,
@@ -106,8 +107,9 @@ export const WeatherProvider = ({ children }) => {
     }
 
     try {
+      const encodedKeyword = encodeURIComponent(keyword);
       const res = await fetch(
-        `${WEATHER_API_URL}/v1/weather/search?k=${keyword}`,
+        `${WEATHER_API_URL}/v1/weather/search?k=${encodedKeyword}`,
         {
           headers: {
             "X-Client-Id": CLIENT_ID,
