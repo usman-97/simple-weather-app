@@ -3,15 +3,8 @@ import Spinner from "../components/Spinner";
 import NoResultIcon from "../assets/icons/no-result.png";
 
 const HomePage = () => {
-  const {
-    data,
-    fetchedKeyword,
-    loading,
-    error,
-    selectedPlace,
-    fetchWeatherDataByKeyword,
-    showIconBasedOnCode,
-  } = useWeatherContext();
+  const { data, loading, error, selectedPlace, showIconBasedOnCode } =
+    useWeatherContext();
 
   if (loading) {
     return (
