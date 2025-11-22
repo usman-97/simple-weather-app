@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { useWeatherContext } from "../contexts/WeatherContext";
 import Spinner from "../components/Spinner";
 import NoResultIcon from "../assets/icons/no-result.png";
@@ -13,14 +12,6 @@ const HomePage = () => {
     fetchWeatherDataByKeyword,
     showIconBasedOnCode,
   } = useWeatherContext();
-  const [newKeyword, setNewKeyword] = useState(selectedPlace);
-
-  useEffect(() => {
-    if (!data && fetchedKeyword) {
-      fetchWeatherDataByKeyword(fetchedKeyword);
-      setNewKeyword(selectedPlace);
-    }
-  }, [fetchedKeyword]);
 
   if (loading) {
     return (
@@ -50,7 +41,7 @@ const HomePage = () => {
             <div className="flex items-center space-x-10">
               <img src={NoResultIcon} className="w-30" />
               <p>
-                No weather data found for <b>{newKeyword}</b>
+                No weather data found for <b>{selectedPlace}</b>
               </p>
             </div>
           </div>

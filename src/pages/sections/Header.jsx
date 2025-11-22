@@ -19,6 +19,13 @@ const Header = () => {
   const [newKeyword, setNewKeyword] = useState(selectedPlace);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!data && fetchedKeyword) {
+      fetchWeatherDataByKeyword(fetchedKeyword);
+      setNewKeyword(selectedPlace);
+    }
+  }, [fetchedKeyword]);
+
   const handleBackToSearchPage = () => {
     resetSearch();
     resetSearchResult();
