@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "../pages/sections/Footer";
 
-const MainLayout = () => {
+const BaseLayout = () => {
   return (
     <>
       <div className="grid min-h-[100vh]">
@@ -13,4 +13,4 @@ const MainLayout = () => {
   );
 };
 
-export default MainLayout;
+export default BaseLayout;

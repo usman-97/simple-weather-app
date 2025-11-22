@@ -9,6 +9,7 @@ import Spinner from "../components/Spinner";
 const SearchPage = () => {
   const [keyword, setKeyword] = useState(null);
   const {
+    fetchedKeyword,
     fetchWeatherDataByKeyword,
     searchResult,
     fetchSearchResult,
@@ -16,6 +17,12 @@ const SearchPage = () => {
     loading,
   } = useWeatherContext();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (fetchedKeyword) {
+      navigate("/home", { replace: true });
+    }
+  }, [fetchedKeyword, navigate]);
 
   const handleOnSearchChange = (e) => {
     setKeyword(e.target.value);
@@ -26,7 +33,6 @@ const SearchPage = () => {
     e.preventDefault();
     if (keyword) {
       await fetchWeatherDataByKeyword(keyword, keyword);
-      navigate(`/`);
     }
   };
 
