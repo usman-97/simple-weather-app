@@ -34,11 +34,8 @@ const AppRouter = () => {
             )
           }
         />
-      </>
+      </>,
     ),
-    {
-      basename: "/simple-weather-app",
-    }
   );
 
   return <RouterProvider router={router} />;

@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base: "/simple-weather-app",
+  base: "/",
   server: {
     port: 5000,
   }
