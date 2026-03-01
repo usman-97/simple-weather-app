@@ -33,7 +33,7 @@ const SearchForm = ({
               <input
                 type="text"
                 name="searchCity"
-                placeholder="Search City ..."
+                placeholder="Search City . . ."
                 className="w-full pl-5 py-2 bg-off-white text-custom-black text-xl placeholder:text-light-grey rounded-lg focus:outline-2 focus:outline-blue md:rounded-none md:rounded-l-lg"
                 onChange={handleOnChange}
                 value={value}
