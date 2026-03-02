@@ -44,7 +44,7 @@ const SearchPage = () => {
 
   return (
     <div className="grid place-content-center gap-10 px-5 pb-50 bg-sky-blue text-off-white font-primary overflow-hidden md:px-0 md:gap-12">
-      <div className="flex flex-col space-y-6 relative">
+      <div className="flex flex-col space-y-6 relative px-5 py-6 bg-light-sky-blue rounded-3xl">
         <div className="flex flex-col items-center space-y-1 md:flex-row md:items-end md:space-y-0 md:space-x-5">
           <img
             src={weatherIcon}
