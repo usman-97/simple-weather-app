@@ -41,15 +41,6 @@ export const WeatherProvider = ({ children }) => {
 
   // Get keyword from local storage
   useEffect(() => {
-    // const savedKeyword = getWithExpiry("weatherKeyword");
-    // if (savedKeyword) {
-    //   setFetchedKeyword(savedKeyword);
-    // }
-
-    // const savedSelectedPlace = getWithExpiry("selectedPlace");
-    // if (savedSelectedPlace) {
-    //   setSelectedPlace(savedSelectedPlace);
-    // }
     const cache = getWithExpiry("cache");
     if (cache) {
       setFetchedKeyword(cache.weatherKeyword);
@@ -92,10 +83,8 @@ export const WeatherProvider = ({ children }) => {
         let cache = {
           weatherKeyword: keyword,
         };
-        // setWithExpiry("weatherKeyword", keyword, oneHour);
         if (selectedPlace) {
           setSelectedPlace(selectedPlace);
-          // setWithExpiry("selectedPlace", selectedPlace, oneHour);
           cache.selectedPlace = selectedPlace;
         }
         const oneHour = 60 * 60 * 1000;
