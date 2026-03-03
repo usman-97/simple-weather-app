@@ -39,7 +39,7 @@ const Header = () => {
 
   const handleSelectCity = (keyword, city) => {
     setNewKeyword(city);
-    fetchWeatherDataByKeyword(keyword);
+    fetchWeatherDataByKeyword(keyword, city);
     resetSearchResult();
   };
 
@@ -50,7 +50,7 @@ const Header = () => {
       fetchedKeyword &&
       fetchedKeyword.toLowerCase() !== newKeyword.toLowerCase()
     ) {
-      fetchWeatherDataByKeyword(newKeyword);
+      fetchWeatherDataByKeyword(newKeyword, newKeyword);
     }
   };
 
