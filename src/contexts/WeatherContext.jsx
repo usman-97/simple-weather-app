@@ -41,14 +41,19 @@ export const WeatherProvider = ({ children }) => {
 
   // Get keyword from local storage
   useEffect(() => {
-    const savedKeyword = getWithExpiry("weatherKeyword");
-    if (savedKeyword) {
-      setFetchedKeyword(savedKeyword);
-    }
+    // const savedKeyword = getWithExpiry("weatherKeyword");
+    // if (savedKeyword) {
+    //   setFetchedKeyword(savedKeyword);
+    // }
 
-    const savedSelectedPlace = getWithExpiry("selectedPlace");
-    if (savedSelectedPlace) {
-      setSelectedPlace(savedSelectedPlace);
+    // const savedSelectedPlace = getWithExpiry("selectedPlace");
+    // if (savedSelectedPlace) {
+    //   setSelectedPlace(savedSelectedPlace);
+    // }
+    const cache = getWithExpiry("cache");
+    if (cache) {
+      setFetchedKeyword(cache.weatherKeyword);
+      setSelectedPlace(cache.selectedPlace);
     }
   }, []);
 
@@ -75,7 +80,7 @@ export const WeatherProvider = ({ children }) => {
               "X-Client-Id": CLIENT_ID,
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
         if (!res.ok) {
           setError("Failed to fetch weather data");
@@ -84,19 +89,24 @@ export const WeatherProvider = ({ children }) => {
         const responseData = await res.json();
         setData(responseData);
         setFetchedKeyword(keyword);
-        const oneHour = 60 * 60 * 1000;
-        setWithExpiry("weatherKeyword", keyword, oneHour);
+        let cache = {
+          weatherKeyword: keyword,
+        };
+        // setWithExpiry("weatherKeyword", keyword, oneHour);
         if (selectedPlace) {
           setSelectedPlace(selectedPlace);
-          setWithExpiry("selectedPlace", selectedPlace, oneHour);
+          // setWithExpiry("selectedPlace", selectedPlace, oneHour);
+          cache.selectedPlace = selectedPlace;
         }
+        const oneHour = 60 * 60 * 1000;
+        setWithExpiry("cache", cache, oneHour);
       } catch (e) {
         setError(e);
       } finally {
         setLoading(false);
       }
     },
-    []
+    [],
   );
 
   const fetchSearchResult = useCallback(async (keyword) => {
@@ -115,7 +125,7 @@ export const WeatherProvider = ({ children }) => {
             "X-Client-Id": CLIENT_ID,
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       if (!res.ok) {
         throw new Error(`HTTP error! Status: ${res.status}`);
@@ -204,7 +214,7 @@ export const WeatherProvider = ({ children }) => {
       showIconBasedOnCode,
       resetSearchResult,
       resetSearch,
-    ]
+    ],
   );
 
   return (

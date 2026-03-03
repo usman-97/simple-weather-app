@@ -21,7 +21,7 @@ const Header = () => {
 
   useEffect(() => {
     if (!data && fetchedKeyword) {
-      fetchWeatherDataByKeyword(fetchedKeyword);
+      fetchWeatherDataByKeyword(fetchedKeyword, selectedPlace);
       setNewKeyword(selectedPlace);
     }
   }, [fetchedKeyword]);
