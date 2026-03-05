@@ -38,6 +38,7 @@ export const WeatherProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [previousSearchedData, setPreviousSearchedData] = useState(null);
 
   // Get keyword from local storage
   useEffect(() => {
@@ -45,6 +46,7 @@ export const WeatherProvider = ({ children }) => {
     if (cache) {
       setFetchedKeyword(cache.weatherKeyword);
       setSelectedPlace(cache.selectedPlace);
+      setPreviousSearchedData(cache.previousSearchedData);
     }
   }, []);
 
@@ -78,15 +80,22 @@ export const WeatherProvider = ({ children }) => {
           throw new Error(error);
         }
         const responseData = await res.json();
+        const prevData = data || responseData;
+        const minimizedPrevData = {
+          name: prevData.location.name,
+          day: prevData.current.is_day,
+        };
+        setPreviousSearchedData(minimizedPrevData);
         setData(responseData);
         setFetchedKeyword(keyword);
-        let cache = {
-          weatherKeyword: keyword,
-        };
         if (selectedPlace) {
           setSelectedPlace(selectedPlace);
-          cache.selectedPlace = selectedPlace;
         }
+        const cache = {
+          weatherKeyword: keyword,
+          ...(selectedPlace && { selectedPlace }),
+          previousSearchedData: minimizedPrevData,
+        };
         const oneHour = 60 * 60 * 1000;
         setWithExpiry("cache", cache, oneHour);
       } catch (e) {
@@ -190,6 +199,7 @@ export const WeatherProvider = ({ children }) => {
       showIconBasedOnCode,
       resetSearchResult,
       resetSearch,
+      previousSearchedData,
     }),
     [
       data,
@@ -203,6 +213,7 @@ export const WeatherProvider = ({ children }) => {
       showIconBasedOnCode,
       resetSearchResult,
       resetSearch,
+      previousSearchedData,
     ],
   );
 

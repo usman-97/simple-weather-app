@@ -3,17 +3,32 @@ import Spinner from "../components/Spinner";
 import NoResultIcon from "../assets/icons/no-result.png";
 
 const HomePage = () => {
-  const { data, loading, error, selectedPlace, showIconBasedOnCode } =
-    useWeatherContext();
+  const {
+    data,
+    loading,
+    error,
+    selectedPlace,
+    showIconBasedOnCode,
+    previousSearchedData,
+  } = useWeatherContext();
+
+  const bgColour =
+    previousSearchedData && previousSearchedData.day === 0
+      ? "bg-dark-blue"
+      : "bg-sky-blue";
+  const dataBgColour =
+    previousSearchedData && previousSearchedData.day === 0
+      ? "bg-blue"
+      : "bg-light-sky-blue";
 
   if (loading) {
     return (
       <div
-        className={`grid place-content-center gap-10 px-5 py-8 bg-sky-blue text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
+        className={`grid place-content-center gap-10 px-5 py-8 ${bgColour} text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
       >
         <div className="flex flex-col md:w-4xl md:space-y-5">
           <div
-            className={`flex flex-col items-center mt-5 px-5 py-6 bg-light-sky-blue text-center rounded-3xl md:mt-0 md:text-left`}
+            className={`flex flex-col items-center mt-5 px-5 py-6 ${dataBgColour} text-center rounded-3xl md:mt-0 md:text-left`}
           >
             <Spinner loading={loading} />
           </div>
@@ -25,11 +40,11 @@ const HomePage = () => {
   if (error || !data) {
     return (
       <div
-        className={`grid place-content-center gap-10 px-5 py-8 bg-sky-blue text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
+        className={`grid place-content-center gap-10 px-5 py-8 ${bgColour} text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
       >
         <div className="flex flex-col md:w-4xl md:space-y-5">
           <div
-            className={`flex flex-col items-center mt-5 px-5 py-6 bg-light-sky-blue text-center rounded-3xl md:mt-0 md:text-left`}
+            className={`flex flex-col items-center mt-5 px-5 py-6 ${dataBgColour} text-center rounded-3xl md:mt-0 md:text-left`}
           >
             <div className="flex items-center space-x-10">
               <img src={NoResultIcon} className="w-30" />

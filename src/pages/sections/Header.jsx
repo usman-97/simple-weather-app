@@ -15,6 +15,7 @@ const Header = () => {
     fetchSearchResult,
     resetSearchResult,
     resetSearch,
+    previousSearchedData,
   } = useWeatherContext();
   const [newKeyword, setNewKeyword] = useState(selectedPlace);
   const navigate = useNavigate();
@@ -55,7 +56,10 @@ const Header = () => {
   };
 
   const backgroundColour =
-    data && data.current.is_day === 0 ? "bg-blue" : "bg-light-sky-blue";
+    (data && data.current.is_day === 0) ||
+    (previousSearchedData && previousSearchedData.day === 0)
+      ? "bg-blue"
+      : "bg-light-sky-blue";
 
   return (
     <div
