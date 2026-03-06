@@ -54,11 +54,11 @@ const SearchPage = () => {
           />
           <img
             src={weatherMobileIcon}
-            height="150"
-            width="150"
+            height="100"
+            width="100"
             className="block md:hidden"
           />
-          <h1 className="text-5xl font-extrabold text-center md:text-8xl font-secondary md:mb-10">
+          <h1 className="text-2xl font-extrabold text-center md:text-8xl font-secondary md:mb-10">
             Simple Weather App
           </h1>
         </div>
