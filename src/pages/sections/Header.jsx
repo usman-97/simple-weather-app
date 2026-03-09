@@ -4,6 +4,7 @@ import { useWeatherContext } from "../../contexts/WeatherContext";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
+import { useThemeContext } from "../../contexts/ThemeContext";
 
 const Header = () => {
   const {
@@ -17,6 +18,7 @@ const Header = () => {
     resetSearch,
     previousSearchedData,
   } = useWeatherContext();
+  const { theme, changeTheme } = useThemeContext();
   const [newKeyword, setNewKeyword] = useState(selectedPlace);
   const navigate = useNavigate();
 
@@ -26,6 +28,12 @@ const Header = () => {
       setNewKeyword(selectedPlace);
     }
   }, [fetchedKeyword]);
+
+  useEffect(() => {
+    if (data) {
+      changeTheme(data.current.is_day);
+    }
+  }, [data]);
 
   const handleBackToSearchPage = () => {
     resetSearch();

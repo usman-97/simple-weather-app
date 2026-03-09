@@ -1,6 +1,9 @@
 import { useWeatherContext } from "../contexts/WeatherContext";
 import Spinner from "../components/Spinner";
 import NoResultIcon from "../assets/icons/no-result.png";
+import { motion } from "motion/react";
+import { useThemeContext } from "../contexts/ThemeContext";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const {
@@ -11,6 +14,7 @@ const HomePage = () => {
     showIconBasedOnCode,
     previousSearchedData,
   } = useWeatherContext();
+  const { theme } = useThemeContext();
 
   const bgColour =
     previousSearchedData && previousSearchedData.day === 0
@@ -58,14 +62,16 @@ const HomePage = () => {
     );
   }
 
-  const backgroundColour =
-    data.current.is_day === 0 ? "bg-dark-blue" : "bg-sky-blue";
+  const backgroundColour = data.current.is_day === 0 ? "#0073ff" : "#41ceff";
   const dataBackgroundColour =
     data.current.is_day === 0 ? "bg-blue" : "bg-light-sky-blue";
 
   return (
-    <div
-      className={`grid place-content-center gap-10 relative px-5 py-8 ${backgroundColour} text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
+    <motion.div
+      initial={false}
+      animate={{ backgroundColor: theme.background }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      className={`grid place-content-center gap-10 relative px-5 py-8 text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
     >
       <div className="flex flex-col mb-2 md:w-4xl md:space-y-5">
         <div
@@ -108,7 +114,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
