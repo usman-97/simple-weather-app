@@ -20,7 +20,7 @@ const SearchForm = ({
   return (
     <>
       <form
-        className="w-full px-5 md:px-0"
+        className="w-full px-5 relative md:px-0"
         onSubmit={handleSubmit}
         action="POST"
         onBlur={handleFocusOut}
@@ -39,10 +39,14 @@ const SearchForm = ({
                 value={value}
               />
 
-              <SearchResultsList
-                results={searchResult}
-                handleSelectCity={handleSelectCity}
-              />
+              {searchResult && searchResult.length > 0 && (
+                <div className="">
+                  <SearchResultsList
+                    results={searchResult}
+                    handleSelectCity={handleSelectCity}
+                  />
+                </div>
+              )}
             </div>
             <input
               type="submit"

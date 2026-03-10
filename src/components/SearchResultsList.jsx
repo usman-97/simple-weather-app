@@ -6,7 +6,7 @@ const SearchResultsList = ({ results, handleSelectCity }) => {
   }
 
   return (
-    <div className="flex flex-col absolute px-5 w-full bg-off-white text-custom-black rounded-bl-xl rounded-br-xl">
+    <div className="flex flex-col absolute px-5 w-full bg-off-white text-custom-black rounded-bl-xl rounded-br-xl z-10">
       {results.map((city, i) => {
         return (
           <button
