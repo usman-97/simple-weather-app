@@ -179,11 +179,11 @@ export const WeatherProvider = ({ children }) => {
     setFetchedKeyword(null);
     setSelectedPlace(null);
     setData(null);
+    setPreviousSearchedData(null);
   };
 
   const clearWeatherDataFromLocalStorage = () => {
-    removeFromStorage("weatherKeyword");
-    removeFromStorage("selectedPlace");
+    removeFromStorage("cache");
   };
 
   const value = useMemo(
