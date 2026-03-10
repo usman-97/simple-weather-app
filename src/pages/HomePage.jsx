@@ -74,7 +74,10 @@ const HomePage = () => {
       className={`grid place-content-center gap-10 relative px-5 py-8 text-off-white font-primary md:px-0 md:py-0 md:gap-12`}
     >
       <div className="flex flex-col mb-2 md:w-4xl md:space-y-5">
-        <div
+        <motion.div
+          initial={false}
+          animate={{ backgroundColor: theme.card }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           className={`flex flex-col items-center px-15 py-6 ${dataBackgroundColour} text-center rounded-3xl md:px-5 md:text-left`}
         >
           <div className="flex flex-col items-center space-y-3">
@@ -112,7 +115,7 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </motion.div>
   );

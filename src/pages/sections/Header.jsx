@@ -5,6 +5,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { useThemeContext } from "../../contexts/ThemeContext";
+import { motion } from "motion/react";
 
 const Header = () => {
   const {
@@ -70,7 +71,10 @@ const Header = () => {
       : "bg-light-sky-blue";
 
   return (
-    <div
+    <motion.div
+      initial={false}
+      animate={{ backgroundColor: theme.card }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
       className={`flex justify-center items-center ${backgroundColour} text-off-white font-primary z-10`}
     >
       <div className="flex flex-col w-4xl md:flex-row md:items-baseline md:space-x-5">
@@ -86,7 +90,7 @@ const Header = () => {
           handleSelectCity={handleSelectCity}
         />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

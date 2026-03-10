@@ -15,6 +15,7 @@ export const useThemeContext = () => {
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState({
     background: "#41ceff",
+    card: "#5ed3ff",
   });
 
   const changeTheme = (day) => {
@@ -22,6 +23,7 @@ export const ThemeProvider = ({ children }) => {
       return {
         ...prev,
         background: day === 1 ? "#41ceff" : "#0073ff",
+        card: day === 1 ? "#5ed3ff" : "#1380ff",
       };
     });
   };
