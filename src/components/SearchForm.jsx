@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SearchResultsList from "./SearchResultsList";
+import { motion, AnimatePresence } from "motion/react";
 
 const SearchForm = ({
   handleSubmit,
@@ -39,14 +40,21 @@ const SearchForm = ({
                 value={value}
               />
 
-              {searchResult && searchResult.length > 0 && (
-                <div className="">
-                  <SearchResultsList
-                    results={searchResult}
-                    handleSelectCity={handleSelectCity}
-                  />
-                </div>
-              )}
+              <AnimatePresence>
+                {searchResult && searchResult.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scaleY: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scaleY: 1 }}
+                    exit={{ opacity: 0, y: -10, scaleY: 0.95 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  >
+                    <SearchResultsList
+                      results={searchResult}
+                      handleSelectCity={handleSelectCity}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             <input
               type="submit"
