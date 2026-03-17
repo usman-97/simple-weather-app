@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SearchResultsList from "./SearchResultsList";
+import { motion, AnimatePresence } from "motion/react";
 
 const SearchForm = ({
   handleSubmit,
@@ -20,7 +21,7 @@ const SearchForm = ({
   return (
     <>
       <form
-        className="w-full px-5 md:px-0"
+        className="w-full px-5 relative md:px-0"
         onSubmit={handleSubmit}
         action="POST"
         onBlur={handleFocusOut}
@@ -33,18 +34,32 @@ const SearchForm = ({
               <input
                 type="text"
                 name="searchCity"
-                placeholder="Search City ..."
+                placeholder="Search City . . ."
                 className="w-full pl-5 py-2 bg-off-white text-custom-black text-xl placeholder:text-light-grey rounded-lg focus:outline-2 focus:outline-blue md:rounded-none md:rounded-l-lg"
                 onChange={handleOnChange}
                 value={value}
               />
 
-              <SearchResultsList
-                results={searchResult}
-                handleSelectCity={handleSelectCity}
-              />
+              <AnimatePresence>
+                {searchResult && searchResult.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scaleY: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scaleY: 1 }}
+                    exit={{ opacity: 0, y: -10, scaleY: 0.95 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  >
+                    <SearchResultsList
+                      results={searchResult}
+                      handleSelectCity={handleSelectCity}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            <input
+            <motion.input
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.9, y: 1 }}
+              transition={{ type: "spring", stiffness: 100, damping: 50 }}
               type="submit"
               value="Search"
               className="mt-1 py-2 px-5 bg-custom-black text-xl font-medium cursor-pointer rounded-lg hover:bg-light-charcoal transition-colors duration-300 md:mt-0 md:rounded-none md:rounded-r-lg"

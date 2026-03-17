@@ -38,17 +38,15 @@ export const WeatherProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [previousSearchedData, setPreviousSearchedData] = useState(null);
 
   // Get keyword from local storage
   useEffect(() => {
-    const savedKeyword = getWithExpiry("weatherKeyword");
-    if (savedKeyword) {
-      setFetchedKeyword(savedKeyword);
-    }
-
-    const savedSelectedPlace = getWithExpiry("selectedPlace");
-    if (savedSelectedPlace) {
-      setSelectedPlace(savedSelectedPlace);
+    const cache = getWithExpiry("cache");
+    if (cache) {
+      setFetchedKeyword(cache.weatherKeyword);
+      setSelectedPlace(cache.selectedPlace);
+      setPreviousSearchedData(cache.previousSearchedData);
     }
   }, []);
 
@@ -75,28 +73,38 @@ export const WeatherProvider = ({ children }) => {
               "X-Client-Id": CLIENT_ID,
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
         if (!res.ok) {
           setError("Failed to fetch weather data");
           throw new Error(error);
         }
         const responseData = await res.json();
+        const prevData = data || responseData;
+        const minimizedPrevData = {
+          name: prevData.location.name,
+          day: prevData.current.is_day,
+        };
+        setPreviousSearchedData(minimizedPrevData);
         setData(responseData);
         setFetchedKeyword(keyword);
-        const oneHour = 60 * 60 * 1000;
-        setWithExpiry("weatherKeyword", keyword, oneHour);
         if (selectedPlace) {
           setSelectedPlace(selectedPlace);
-          setWithExpiry("selectedPlace", selectedPlace, oneHour);
         }
+        const cache = {
+          weatherKeyword: keyword,
+          ...(selectedPlace && { selectedPlace }),
+          previousSearchedData: minimizedPrevData,
+        };
+        const oneHour = 60 * 60 * 1000;
+        setWithExpiry("cache", cache, oneHour);
       } catch (e) {
         setError(e);
       } finally {
         setLoading(false);
       }
     },
-    []
+    [],
   );
 
   const fetchSearchResult = useCallback(async (keyword) => {
@@ -115,7 +123,7 @@ export const WeatherProvider = ({ children }) => {
             "X-Client-Id": CLIENT_ID,
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       if (!res.ok) {
         throw new Error(`HTTP error! Status: ${res.status}`);
@@ -138,7 +146,7 @@ export const WeatherProvider = ({ children }) => {
         weatherIcon = CloudyIcon;
       } else if (
         (weatherCode >= 1114 && weatherCode <= 1117) ||
-        (weatherIcon >= 1210 && weatherCode <= 1237) ||
+        (weatherCode >= 1210 && weatherCode <= 1237) ||
         (weatherCode >= 1255 && weatherCode <= 1264) ||
         (weatherCode >= 1279 && weatherCode <= 1282)
       ) {
@@ -171,11 +179,11 @@ export const WeatherProvider = ({ children }) => {
     setFetchedKeyword(null);
     setSelectedPlace(null);
     setData(null);
+    setPreviousSearchedData(null);
   };
 
   const clearWeatherDataFromLocalStorage = () => {
-    removeFromStorage("weatherKeyword");
-    removeFromStorage("selectedPlace");
+    removeFromStorage("cache");
   };
 
   const value = useMemo(
@@ -191,6 +199,7 @@ export const WeatherProvider = ({ children }) => {
       showIconBasedOnCode,
       resetSearchResult,
       resetSearch,
+      previousSearchedData,
     }),
     [
       data,
@@ -204,7 +213,8 @@ export const WeatherProvider = ({ children }) => {
       showIconBasedOnCode,
       resetSearchResult,
       resetSearch,
-    ]
+      previousSearchedData,
+    ],
   );
 
   return (

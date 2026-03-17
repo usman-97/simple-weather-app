@@ -4,6 +4,8 @@ import { useWeatherContext } from "../../contexts/WeatherContext";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
+import { useThemeContext } from "../../contexts/ThemeContext";
+import { motion } from "motion/react";
 
 const Header = () => {
   const {
@@ -15,16 +17,24 @@ const Header = () => {
     fetchSearchResult,
     resetSearchResult,
     resetSearch,
+    previousSearchedData,
   } = useWeatherContext();
+  const { theme, changeTheme } = useThemeContext();
   const [newKeyword, setNewKeyword] = useState(selectedPlace);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!data && fetchedKeyword) {
-      fetchWeatherDataByKeyword(fetchedKeyword);
+      fetchWeatherDataByKeyword(fetchedKeyword, selectedPlace);
       setNewKeyword(selectedPlace);
     }
   }, [fetchedKeyword]);
+
+  useEffect(() => {
+    if (data) {
+      changeTheme(data.current.is_day);
+    }
+  }, [data]);
 
   const handleBackToSearchPage = () => {
     resetSearch();
@@ -39,7 +49,7 @@ const Header = () => {
 
   const handleSelectCity = (keyword, city) => {
     setNewKeyword(city);
-    fetchWeatherDataByKeyword(keyword);
+    fetchWeatherDataByKeyword(keyword, city);
     resetSearchResult();
   };
 
@@ -50,15 +60,21 @@ const Header = () => {
       fetchedKeyword &&
       fetchedKeyword.toLowerCase() !== newKeyword.toLowerCase()
     ) {
-      fetchWeatherDataByKeyword(newKeyword);
+      fetchWeatherDataByKeyword(newKeyword, newKeyword);
     }
   };
 
   const backgroundColour =
-    data && data.current.is_day === 0 ? "bg-blue" : "bg-light-sky-blue";
+    (data && data.current.is_day === 0) ||
+    (previousSearchedData && previousSearchedData.day === 0)
+      ? "bg-blue"
+      : "bg-light-sky-blue";
 
   return (
-    <div
+    <motion.div
+      initial={false}
+      animate={{ backgroundColor: theme.card }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
       className={`flex justify-center items-center ${backgroundColour} text-off-white font-primary z-10`}
     >
       <div className="flex flex-col w-4xl md:flex-row md:items-baseline md:space-x-5">
@@ -74,7 +90,7 @@ const Header = () => {
           handleSelectCity={handleSelectCity}
         />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -6,7 +6,7 @@ import Header from "../pages/sections/Header";
 const FullLayout = () => {
   return (
     <>
-      <div className="grid min-h-[100vh]">
+      <div className="md:grid md:min-h-[100vh]">
         <Header />
         <Outlet />
         <Footer />
