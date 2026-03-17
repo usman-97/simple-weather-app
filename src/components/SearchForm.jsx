@@ -56,7 +56,10 @@ const SearchForm = ({
                 )}
               </AnimatePresence>
             </div>
-            <input
+            <motion.input
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.9, y: 1 }}
+              transition={{ type: "spring", stiffness: 100, damping: 50 }}
               type="submit"
               value="Search"
               className="mt-1 py-2 px-5 bg-custom-black text-xl font-medium cursor-pointer rounded-lg hover:bg-light-charcoal transition-colors duration-300 md:mt-0 md:rounded-none md:rounded-r-lg"
